@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Great Number Game</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap.css') }}">
+</head>
+<body>
+    <div class="container mx-auto min-vh-100">
+        <h1 class="text-center">Welcome to the Great Number Game!</h1>
+        <h3 class="text-center">I am thinking of a number between 1 and 100.</h3>
+        <h4 class="text-center">Attempts: {{ session.attempts }}</h4>
+        <form action="/outcome" method="post">
+            <div class="d-flex flex-column mx-auto py-3 w-25 bg-dark text-warning text-center">
+                <label for="guess">Take a guess!</label> 
+                <input class="w-75 my-1 align-self-center" type="text" id="guess" name="guess">
+                <input class="w-75 my-1 align-self-center" type="submit">
+            </div>
+        </form>
+        <div class="mx-auto py-5 my-5 w-50 text-center" style="background-color:var({{ session.outcome_color }})">
+            {% if session.guess %}
+                <p>{{ session.outcome_text }}</p>
+            {% endif %}
+    
+            {% if session.correct_answer %}
+                <form action="/playagain" method="post">
+                    <!-- <div class="d-flex flex-column mx-auto py-3 w-25 bg-dark text-warning text-center"> -->
+                        <div>
+                        <input class="w-75 my-1 align-self-center" type="submit" value="Play Again">
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+        
+    </div>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/bootstrap.js') }}"></script>
+</body>
+</html>
